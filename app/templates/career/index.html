@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% if careers %}
+    <form action="/career" method="GET">
+        <div class="input-group mb-3">
+            <div class="form-outline flex-fill">
+                <input type="search"  id="floatingInput" class="form-control"
+                value=
+                {% if career_description %}
+                    {{ career_description }}
+                {%else%}
+                    ""
+                {%endif%}
+                name="career_description">
+                <label class="form-label" for="floatingInput">略歴文書検索</label>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        <div class="input-group mb-3">
+            <div class="form-outline flex-fill">
+                <input type="search"  id="floatingInput" class="form-control"
+                value=
+                    {% if position %}
+                        {{ position }}
+                    {%else%}
+                        ""
+                    {%endif%}
+                name="position">
+                <label class="form-label" for="floatingInput">役職検索</label>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+    <div class="mt-3">
+        {{ pagination.info }}
+        {{ pagination.links }}
+    </div>
+    <table class="table table-bordered" border="1">
+        <tr class="b-1">
+            <th class="col-3">会社名</th>
+            <th class="col-2">役員名</th>
+            <th class="col-2">役職名</th>
+            <th class="col-2">日付</th>
+            <th class="col-3">内容</th>
+        </tr>
+        {% for career in careers %}
+            <tr>
+                <td><a href={{ url_for('company.show', edinet_code=career[0].edinet_code) }}>{{ career[1] }}</a></td>
+                <td><a href={{ url_for('officer.show', id=career[0].officer_id) }}>{{ career[0].name }}</a></td>
+                <td>{{ career[0].position}}</td>
+                <td>{{ career[0].date.strftime('%Y年%m月') }}</td>
+                <td>{{ career[0].description}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <div class="">
+        {{ pagination.links }}
+    </div>
+{%else%}
+    <div class="container">
+        <div class="bg-light p-3 p-sm-5 my-4 rounded">
+        <h1 class="display-5 text-center">現在{{search_volume}}件の略歴文書が存在します。</h1>
+        <p class="lead text-center">上場企業の役員の経歴文章をキーワード検索することができます。</p>
+        <hr class="my-4">
+        <form action="/career" method="POST">
+            <div class="input-group mb-3">
+                <div class="form-outline flex-fill">
+                    <input type="search"  id="floatingInput" class="form-control"
+                    value=
+                        {% if career_description %}
+                            {{ career_description }}
+                        {%else%}
+                            ""
+                        {%endif%}
+                    name="career_description">
+                    <label class="form-label" for="floatingInput">略歴文書検索</label>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div class="input-group mb-3">
+                <div class="form-outline flex-fill">
+                    <input type="search"  id="floatingInput" class="form-control"
+                    value=
+                        {% if position %}
+                            {{ position }}
+                        {%else%}
+                            ""
+                        {%endif%}
+                    name="position">
+                    <label class="form-label" for="floatingInput">役職検索</label>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+{%endif%}
+
+{% endblock %}

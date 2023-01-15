@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class='row' style='height:800px;'>
+    <div class='col-lg-6'>
+        <iframe srcdoc="{{ officershtml }}" width="100%" height="100%"></iframe>
+    </div>
+    <div class='col-lg-6'>
+        <iframe src="{{ ssurl }}" width="100%" height="100%"></iframe>
+    </div>
+</div>
+<div>
+    <form action="/" method="post">
+        <button type="submit" name="button" value="confirm">入力内容を確認する</button>
+        <a href="{{ pdf_url }}" target="_blank">PDF版を見る</a>
+    </form>
+</div>
+<div>
+    <h2>注意</h2>
+    <p>スプレッドシートの入力順が、sub_position(職名)から始まっている点に注意。</p>
+    <p>執行役がいる会社は取締役と執行役が被っていることがあるので、被っていたら職名に追加すること。</p>
+    <h2>仕様</h2>
+    <p>空欄の行は勝手に削除されます。</p>
+    <p>positionは複数行に分けて書いても統合されます。</p>
+    <p>descriptionが複数行にわたる場合、複数のセルに分割して入力しても統合されます。その際2行目以降のdateは空欄にして下さい。</p>
+    <p>改行数がそれぞれ同じ場合に限り、1つのセルに複数行にまたがって日付と略歴を入力できます。</p>
+    <p>「1999年4月 A社入社」のように日付と略歴が1つの文章になっている場合は、dateにそのまま入力し、descriptionを空にしておくと自動で分割されます。</p>
+</div>
+{% endblock %}

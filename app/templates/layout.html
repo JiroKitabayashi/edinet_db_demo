@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <!-- Jquery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <!-- Bootstrap5 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKH<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/static/style.css">
+        <!-- MDB icon -->
+        <!-- <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" /> -->
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+        <!-- Google Fonts Roboto -->
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+        />
+        <!-- MDB -->
+        <link rel="stylesheet" href="static/css/mdb.min.css" />
+
+        <title>EDINET DB</title>
+    </head>
+    <body>
+        <div class="container-fluid px-4 px-lg-5">
+            <nav class="navbar navbar-expand-sm navbar-light">
+                <div class="navbar-brand">
+                    <h1>EDINET DB</h1>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-list"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link p-2" href={{ url_for('company.index', form_clear=1 )}}>会社検索</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link p-2" href={{ url_for('career.index', form_clear=1 )}}>略歴検索</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link p-2" href={{ url_for('officer.index', form_clear=1 )}}>役員検索</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            {% block content %}
+                <!-- ここに個別部分が挿入される -->
+            {% endblock %}
+            <footer class="footer py-4">
+                <!-- <p>
+                    <a href="#">トップに戻る</a>
+                </p> -->
+            </footer>
+        </div>
+        <!-- End your project here-->
+        <!-- Bootstrap-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+        <!-- MDB -->
+        <script type="text/javascript" src="static/js/mdb.min.js"></script>
+        <!-- Custom scripts -->
+        <script type="text/javascript">
+        $(function(){
+            $('.dropdown-menu .dropdown-item').click(function(){
+                var visibleItem = $('.dropdown-toggle', $(this).closest('.dropdown'));
+                visibleItem.text($(this).attr('value'));
+            });
+        });
+        </script>
+    </body>
+</html>

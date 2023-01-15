@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<div>
+    <div class='row'>
+        <div class='col-md-4 themed-grid-col'>
+        <table border="1" style="float:left" class="table table-bordered">
+            <tr>
+                <th>doc_id</th>
+                <th>error</th>
+            </tr>
+            {% for i in error_doc_ids %}
+                <tr>
+                    <td><a href='?doc_id={{ i[0] }}'>{{ i[0] }}</a></td>
+                    <td>{{ i[1] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        </div>
+        <div class='col-md-8'>
+            <iframe srcdoc="{{ doc_html }}" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}

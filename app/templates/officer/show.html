@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1 class="p-2">{{ careers[0].name }}</h1>
+<h4>所属会社</h4>
+<table class="table table-bordered" border="1">
+  <tr>
+    <th>会社名</th>
+    <th>Edinet_code</th>
+    <th>資本金(百万)</th>
+    <th>業種</th>
+  </tr>
+  {% for company in companies %}
+  <tr>
+    <th><a href={{ url_for('company.show', edinet_code=company.edinet_code) }}>
+        {{ company.name }}</a></th>
+    <th>{{ company.edinet_code }}</th>
+    <th>{{ company.capital }}</th>
+    <th>{{ company.industry}}</th>
+  </tr>
+  {% endfor %}
+</table>
+<h4>略歴</h4>
+<table class="table table-bordered" border="1">
+  <tr>
+    <th>日付</th>
+    <th>内容</th>
+  </tr>
+  {% for career in careers %}
+  <tr>
+    <td>{{ career.date.strftime('%Y年%m月') }}</a></td>
+    <td>{{ career.description }}</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

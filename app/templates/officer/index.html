@@ -1,0 +1,66 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<form action="/officer" method="GET">
+    <div class="input-group mb-3">
+        <div class="form-outline flex-fill">
+            <input type="search"  id="floatingInput" class="form-control"
+            value= {% if company_name %}
+            {{company_name}}
+            {%else%}
+            ""
+            {%endif%}
+            name="company_name">
+            <label class="form-label" for="floatingInput">会社名検索</label>
+        </div>
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+    <div class="input-group mb-3">
+        <div class="form-outline flex-fill">
+            <input type="search"  id="floatingInput" class="form-control"
+            value= {% if officer_name %}
+            {{officer_name}}
+            {%else%}
+            ""
+            {%endif%}
+            name="officer_name">
+            <label class="form-label" for="floatingInput">役員名検索</label>
+        </div>
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+</form>
+
+    {{ pagination.info }}
+    {{ pagination.links }}
+
+<table class="table table-bordered" border="1">
+    <tr>
+        <th>名前</th>
+        <th>会社名</th>
+        <th>生年月日</th>
+    </tr>
+    {% for rec in records %}
+        <tr>
+            <td class="col-md-3">
+                <a href={{ url_for('officer.show', id = rec['officer'].id) }}>{{ rec['officer'].name }}</a>
+            </td>
+
+            <td class="col-md-7">
+                {% for company in rec['company'] %}
+                <a href={{ url_for('company.show', edinet_code = company['edinet_code']) }}>{{company['company_name']}}</a><br>
+                {% endfor %}
+            </td>
+
+            <td class="col-md-2">
+                {{ rec['officer'].birthday.strftime('%Y年%m月%d日')}}
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+
+{{ pagination.links }}
+{% endblock %}

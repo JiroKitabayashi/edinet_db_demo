@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1 class="p-2">{{ company.name }}</h1>
+<h4 class="p-2">会社概要</h4>
+<table class="table table-bordered" border="1">
+    <tr>
+        <th>会社名</th>
+        <th>Edinet_code</th>
+        <th>資本金(百万)</th>
+        <th>業種</th>
+    </tr>
+    <tr>
+        <td>{{ company.name }}</td>
+        <td>{{ company.edinet_code }}</td>
+        <td>{{ company.capital }}</td>
+        <td>{{ company.industry }}</td>
+    </tr>
+</table>
+<h4 class="my-2">役員</h4>
+<table class="table table-bordered" border="1">
+    <tr>
+        <th>名前</th>
+        <th>役職名</th>
+        <th>生年月日</th>
+    </tr>
+    {% for officer in officers %}
+    <tr>
+        <td class="p-2"><a href={{ url_for('officer.show', id = officer.id) }}>{{ officer.name }}</a></td>
+        <td class="p-2">{{ officer.position }}</a></td>
+        <td class="p-2">{{ officer.birthday.strftime('%Y年%m月%d日') }}</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<h4 class="my-4">出身者</h4>
+<table class="table table-bordered" border="1">
+    <tr>
+        <th>氏名</th>
+        <th>会社名</th>
+        <th>役職</th>
+        <th>日付</th>
+        <th>略歴</th>
+    </tr>
+    {% for former_officer in former_officers %}
+    <tr>
+        <td class="p-2"><a href={{ url_for('officer.show', id = former_officer[0].id) }}> {{ former_officer[0].name }}</a></td>
+        <td class="p-2"><a href={{ url_for('company.show', edinet_code = former_officer[0].edinet_code) }}>{{ former_officer[1].name }}</a></td>
+        <td class="p-2">{{ former_officer[0].position }}</td>
+        <td class="p-2">{{ former_officer[0].date.strftime('%Y年%m月 ~') }}</td>
+        <td class="p-2">{{ former_officer[0].description }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<p class="py-2"><a href={{ url_for('company.index', form_clear=1 )}}>企業一覧に戻る</a></p>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+{% block content %}
+<form action="/" method="POST">
+    <div class="row">
+        <div class="col-12">
+            <div class="input-group dropdown">
+            <a class="input-group-text text-body dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-mdb-toggle="dropdown" aria-expanded="false">業種</a>
+            <ul class="dropdown-menu" id="list-group" aria-labelledby="dropdownMenuLink" data-popper-placement="bottom-start" data-mdb-popper="null" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 47px, 0px);">
+                <li>
+                    <a class="dropdown-item" href="#" value="全業種">全業種</a>
+                </li>
+                {% for i in industries %}
+                <li>
+                    <a class="dropdown-item" href="#" value= {{ i[0]}}>{{ i[0]}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="form-outline flex-fill">
+                <input type="search" id="form1" class="form-control form-control-lg"
+                value= {% if company_name %}
+                        {{company_name}}
+                        {%else%}
+                        ""
+                        {%endif%}
+                        name="company_name">
+                <label class="form-label" for="form1" style="margin-left: 0px;">会社名検索</label>
+            <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 100.8px;"></div><div class="form-notch-trailing"></div></div></div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i>
+            </button>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="mt-3">
+    {{ pagination.info }}
+    {{ pagination.links }}
+</div>
+<div>
+    <div class='row'>
+        <div class='col-md-4 themed-grid-col'>
+        <table border="1" style="float:left" class="table table-bordered">
+            <tr>
+                <th>業種</th>
+                <th>社数</th>
+            </tr>
+            {% for i in industries %}
+                <tr>
+                    <td><a href={{ url_for('company.index', industry=i[0]) }}>{{ i[0]}}</a></td>
+                    <td>{{ i[1]}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        </div>
+        <div class='col-md-8'>
+        <table border="1" style="float:left" class="table table-bordered">
+            <tr>
+                <th>No</th>
+                <th>会社名</th>
+                <th>業種</th>
+                <th>証券コード</th>
+            </tr>
+            {% for company in companies %}
+                <tr>
+                    <td>{{ loop.index + pagination.skip }}</td>
+                    <td><a href={{ url_for('company.show', edinet_code=company.edinet_code) }}>{{ company.name }}</a></td>
+                    <td>{{ company.industry }}</td>
+                    <td>{{ company.sec_code }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        </div>
+    </div>
+    </div>
+    <div class="">
+        {{ pagination.links }}
+    </div>
+</div>
+
+{% endblock %}

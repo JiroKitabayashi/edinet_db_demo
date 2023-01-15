@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="bg-light p-3 p-sm-5 my-4 rounded">
+        <h1 class="display-5 text-center">略歴検索</h1>
+    <p class="lead text-center">{{search_volume}}件の上場企業役員の経歴文章をキーワードで検索できます。</p>
+    <hr class="my-4">
+    <form action="/career" method="GET">
+        <div class="input-group mb-3">
+            <div class="form-outline flex-fill">
+                <input type="search"  id="floatingInput" class="form-control" value="" name="career_description">
+                <label class="form-label" for="floatingInput">略歴文書検索</label>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        <div class="input-group mb-3">
+            <div class="form-outline flex-fill">
+                <input type="search"  id="floatingInput" class="form-control" value="" name="position">
+                <label class="form-label" for="floatingInput">役職検索</label>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
